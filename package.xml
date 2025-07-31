@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<package format="1" xmlns="https://wiki.freecad.org/Package_Metadata">
+  <name>Format Migrator</name>
+  <description>A tool for upconverting and downconverting FreeCAD files between versions</description>
+  <version>0.1</version>
+  <maintainer email="chennes@freecad.org">Chris Hennes</maintainer>
+  <license file="LICENSE">LGPL-2.1-or-later</license>
+  <url type="repository" branch="master">https://github.com/FreeCAD/FormatMigrator</url>
+  <url type="documentation">https://wiki.freecad.org/FormatMigrator</url>
+
+  <content>
+    <workbench>
+      <name>Format Migrator</name>
+      <classname>FormatMigrator</classname>
+      <subdirectory>./</subdirectory>
+      <icon>freecad/FormatMigrator/resources/icons/FormatMigrator.svg</icon>
+      <freecadmin>0.20.0</freecadmin>
+      <depend>defusedxml</depend>
+      <tag>format</tag>
+      <tag>utility</tag>
+    </workbench>
+  </content>
+
+</package>
