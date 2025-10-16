@@ -15,7 +15,8 @@
       <subdirectory>./</subdirectory>
       <icon>freecad/FormatMigrator/resources/icons/FormatMigrator.svg</icon>
       <freecadmin>0.20.0</freecadmin>
-      <depend>defusedxml</depend>
+      <depend type="python">defusedxml</depend>
+      <depend type="python">packaging</depend>
       <tag>format</tag>
       <tag>utility</tag>
     </workbench>
