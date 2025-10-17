@@ -3,10 +3,10 @@
 from packaging.version import Version, InvalidVersion
 import zipfile
 from defusedxml.ElementTree import parse
-from xml.etree.ElementTree import Element
+from xml.etree.ElementTree import Element, tostring
 import re
 
-from discover import find_migrator_subclasses
+from .discover import find_migrator_subclasses
 
 
 class Migrate:
@@ -16,7 +16,7 @@ class Migrate:
     def __init__(self, freecad_file: str, target_version: Version):
         self.freecad_file = freecad_file
         self.target_version = target_version
-        self.original_version = target_version
+        self.original_version = target_version  # Overwritten with contents of Document.xml below
         self.document_xml = self.load_xml("Document.xml")
         self.gui_document_xml = self.load_xml("GuiDocument.xml")
 
@@ -85,4 +85,16 @@ class Migrate:
                 migrator().backward(self.document_xml, self.gui_document_xml)
 
     def export(self, filename: str):
-        pass
+        """Write the modified FCStd file to the given file."""
+
+        # Update the version strings
+        self.document_xml.set("ProgramVersion", str(self.target_version))
+        self.gui_document_xml.set("ProgramVersion", str(self.target_version))
+
+        with zipfile.ZipFile(filename, "a") as outfile:
+            outfile.writestr("Document.xml", tostring(self.document_xml, encoding="utf-8"))
+            outfile.writestr("GuiDocument.xml", tostring(self.gui_document_xml, encoding="utf-8"))
+            with zipfile.ZipFile(self.freecad_file, "r") as z:
+                for item in z.namelist():
+                    if item not in ("Document.xml", "GuiDocument.xml"):
+                        z.write(item)

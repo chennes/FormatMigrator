@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: LGPL-2.1-or-later
 
-from abc import ABC, abstractmethod
+from abc import ABC, ABCMeta, abstractmethod
 from typing import Callable
 from xml.etree.ElementTree import Element
 from packaging.version import Version
@@ -17,7 +17,7 @@ class IncompatibleVersionException(MigratorException):
     Should never be raised by forward-migration code."""
 
 
-class MigratorMeta(type):
+class MigratorMeta(ABCMeta):
     required_attrs = {
         "name": str,
         "description": str,

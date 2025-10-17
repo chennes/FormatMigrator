@@ -5,7 +5,7 @@ import pathlib
 import sys
 import inspect
 from typing import Type, List
-from freecad.formatmigrator.migrator import Migrator
+from .migrator import Migrator
 
 
 def find_migrator_subclasses(root: str) -> List[Type[Migrator]]:
