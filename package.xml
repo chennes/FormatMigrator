@@ -5,15 +5,15 @@
   <version>0.1</version>
   <maintainer email="chennes@freecad.org">Chris Hennes</maintainer>
   <license file="LICENSE">LGPL-2.1-or-later</license>
-  <url type="repository" branch="master">https://github.com/FreeCAD/FormatMigrator</url>
-  <url type="documentation">https://wiki.freecad.org/FormatMigrator</url>
+  <url type="repository" branch="master">https://github.com/FreeCAD/FCStdMigrator</url>
+  <url type="documentation">https://wiki.freecad.org/FCStdMigrator</url>
 
   <content>
     <workbench>
       <name>Format Migrator</name>
-      <classname>FormatMigrator</classname>
+      <classname>FCStdMigrator</classname>
       <subdirectory>./</subdirectory>
-      <icon>freecad/FormatMigrator/resources/icons/FormatMigrator.svg</icon>
+      <icon>freecad/fcstdmigrator/resources/icons/FCStdMigrator.svg</icon>
       <freecadmin>0.20.0</freecadmin>
       <depend type="python">defusedxml</depend>
       <depend type="python">packaging</depend>

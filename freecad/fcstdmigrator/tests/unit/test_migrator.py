@@ -5,7 +5,7 @@ from datetime import date
 from xml.etree.ElementTree import Element
 from packaging.version import Version
 
-from freecad.formatmigrator.migrator import Migrator
+from freecad.fcstdmigrator.migrator import Migrator
 
 
 class TestMigratorMeta(unittest.TestCase):

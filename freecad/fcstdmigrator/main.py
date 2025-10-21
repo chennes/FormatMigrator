@@ -6,7 +6,7 @@
 
 import argparse
 import pathlib
-import freecad.formatmigrator.migrate as migrate
+import freecad.fcstdmigrator.migrate as migrate
 
 
 def parse_args() -> argparse.Namespace:

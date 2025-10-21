@@ -3,7 +3,7 @@
 from unittest import TestCase
 from xml.etree.ElementTree import Element
 
-from freecad.formatmigrator.xml_utilities import find_elements_by_type
+from freecad.fcstdmigrator.xml_utilities import find_elements_by_type
 
 
 class TestXmlUtilities(TestCase):

@@ -6,8 +6,8 @@ from typing import Tuple
 from packaging.version import Version
 from xml.etree.ElementTree import Element
 
-from freecad.formatmigrator.migrator import Migrator
-from freecad.formatmigrator.xml_utilities import find_elements_by_type
+from freecad.fcstdmigrator.migrator import Migrator
+from freecad.fcstdmigrator.xml_utilities import find_elements_by_type
 
 
 class ArchDraftColorTransparencyToAlpha(Migrator):

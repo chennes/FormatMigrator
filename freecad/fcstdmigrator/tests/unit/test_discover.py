@@ -5,7 +5,7 @@ import tempfile
 from unittest import TestCase, mock
 from unittest.mock import patch, MagicMock
 import pathlib
-from freecad.formatmigrator import discover
+from freecad.fcstdmigrator import discover
 
 
 class TestDiscover(TestCase):
@@ -25,7 +25,7 @@ class TestDiscover(TestCase):
     @patch("pathlib.Path.rglob")
     @patch("pathlib.Path.resolve")
     def test_discover_ignores_dunder_files(self, mock_resolve, mock_glob, mock_is_file):
-        base_dir = pathlib.Path("/freecad/formatmigrator/migrations").resolve()
+        base_dir = pathlib.Path("/freecad/fcstdmigrator/migrations").resolve()
         mock_resolve.return_value = base_dir
 
         mock_is_file.return_value = True
@@ -42,7 +42,7 @@ class TestDiscover(TestCase):
     @patch("pathlib.Path.rglob")
     @patch("pathlib.Path.resolve")
     def test_discover_ignores_non_py_files(self, mock_resolve, mock_glob, mock_is_file):
-        base_dir = pathlib.Path("/freecad/formatmigrator/migrations").resolve()
+        base_dir = pathlib.Path("/freecad/fcstdmigrator/migrations").resolve()
         mock_resolve.return_value = base_dir
 
         mock_is_file.return_value = True
@@ -86,7 +86,7 @@ class NotAMigrator: pass
 """
         (self.tmp_path / "not_a_migrator.py").write_text(code)
 
-        from freecad.formatmigrator.discover import find_migrator_subclasses
+        from freecad.fcstdmigrator.discover import find_migrator_subclasses
 
         result = find_migrator_subclasses(str(self.tmp_path))
         self.assertEqual(result, [])
@@ -104,7 +104,7 @@ class FallbackMigrator(Migrator): pass
         # Patch importlib.util.find_spec to always return None
         with mock.patch.object(discover, "Migrator", FakeMigrator):
             with mock.patch("importlib.util.find_spec", return_value=None):
-                from freecad.formatmigrator.discover import find_migrator_subclasses
+                from freecad.fcstdmigrator.discover import find_migrator_subclasses
 
                 result = find_migrator_subclasses(str(self.tmp_path))
 

@@ -8,7 +8,7 @@ import pathlib
 from xml.etree.ElementTree import Element, fromstring
 from packaging.version import Version
 
-from freecad.formatmigrator.migrate import Migrate
+from freecad.fcstdmigrator.migrate import Migrate
 
 
 class TestExtractVersion(unittest.TestCase):
@@ -81,7 +81,7 @@ class TestMigrationLogic(unittest.TestCase):
         cls.return_value.backward = mock.Mock()
         return cls
 
-    @mock.patch("freecad.formatmigrator.migrate.find_migrator_subclasses")
+    @mock.patch("freecad.fcstdmigrator.migrate.find_migrator_subclasses")
     def test_runs_forward_or_backward_correctly(self, mock_find):
         forward = self.make_mock_migrator("Forward", "2.0")
         backward = self.make_mock_migrator("Backward", "0.5")

@@ -3,7 +3,7 @@
 from unittest import TestCase
 from unittest.mock import patch
 import pathlib
-from freecad.formatmigrator import main
+from freecad.fcstdmigrator import main
 
 
 class TestMain(TestCase):
