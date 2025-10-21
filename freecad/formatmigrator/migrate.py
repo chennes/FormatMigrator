@@ -97,4 +97,4 @@ class Migrate:
             with zipfile.ZipFile(self.freecad_file, "r") as z:
                 for item in z.namelist():
                     if item not in ("Document.xml", "GuiDocument.xml"):
-                        z.write(item)
+                        outfile.writestr(item, z.read(item))

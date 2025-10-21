@@ -32,9 +32,9 @@ class MigratorMeta(ABCMeta):
             return
 
         for attr, expected_type in MigratorMeta.required_attrs.items():
-            if not hasattr(cls, attr):
+            if attr not in namespace:
                 raise TypeError(f"Class '{name}' is missing required attribute '{attr}'")
-            value = getattr(cls, attr)
+            value = namespace[attr]
             if not isinstance(value, expected_type):
                 raise TypeError(
                     f"Attribute '{attr}' in class '{name}' must be of type {expected_type.__name__}, got {type(value).__name__}"
