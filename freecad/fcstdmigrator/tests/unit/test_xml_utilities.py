@@ -3,16 +3,10 @@
 from unittest import TestCase
 from xml.etree.ElementTree import Element
 
-from freecad.fcstdmigrator.xml_utilities import find_elements_by_type
+from freecad.fcstdmigrator.xml_utilities import find_elements_by_type, find_first_element_with_name
 
 
-class TestXmlUtilities(TestCase):
-
-    def setUp(self):
-        pass
-
-    def tearDown(self):
-        pass
+class TestFindElementsByType(TestCase):
 
     def test_finds_matching_elements(self):
         root = Element("root")
@@ -60,3 +54,49 @@ class TestXmlUtilities(TestCase):
         result = find_elements_by_type(root, "T")
         self.assertEqual(set(result), {a1, b1})
         self.assertTrue(all(isinstance(e, Element) for e in result))
+
+
+class TestFindFirstElementWithName(TestCase):
+
+    def test_finds_first_matching_child(self):
+        root = Element("root")
+        a = Element("a", attrib={"Name":"x"})
+        b = Element("b", attrib={"Name":"target"})
+        root.extend([a, b])
+
+        result = find_first_element_with_name(root, "target")
+        self.assertIs(result, b)
+
+    def test_finds_nested_match(self):
+        root = Element("root")
+        a = Element("a")
+        inner = Element("inner", attrib={"Name":"target"})
+        a.append(inner)
+        root.append(a)
+
+        result = find_first_element_with_name(root, "target")
+        self.assertIs(result, inner)
+
+    def test_returns_first_match_in_depth_first_order(self):
+        root = Element("root")
+
+        # Branch 1 (contains target early)
+        a = Element("a")
+        a1 = Element("a1", attrib={"Name":"target"})
+        a.append(a1)
+
+        # Branch 2 (also contains target but later)
+        b = Element("b")
+        b1 = Element("b1", attrib={"Name":"target"})
+        b.append(b1)
+
+        root.extend([a, b])
+
+        result = find_first_element_with_name(root, "target")
+        self.assertIs(result, a1)
+
+    def test_returns_none_when_no_match(self):
+        root = Element("root")
+        root.append(Element("child", attrib={"Name":"foo"}))
+        result = find_first_element_with_name(root, "bar")
+        self.assertIsNone(result)
